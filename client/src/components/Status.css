@@ -1,0 +1,23 @@
+.status {
+  list-style: none;
+  display: flex;
+  width: 300px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status .checker {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status .checker.ok {
+  background-color: green;
+}
+
+.status .checker.bad {
+  background-color: red;
+}
