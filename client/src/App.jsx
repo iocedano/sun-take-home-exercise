@@ -7,9 +7,13 @@ function App() {
   let [status, setStatus] = useState([]);
   
   useEffect(() => {
-    axios.get('/v1/all-status').then((response) => {
+    const intervalCode = setInterval(() => axios.get('/v1/all-status').then((response) => {
       setStatus(response.data);
-    })
+    }), 1000)
+
+    return () => {
+      clearInterval(intervalCode);
+    }
   },[])
 
   return (
