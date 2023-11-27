@@ -1,7 +1,7 @@
 package main
 
 import (
-	v1 "interview/takehomeproject/server/v1"
+	API "interview/takehomeproject/server/v2"
 	"net/http"
 	"path"
 )
@@ -20,7 +20,7 @@ func main() {
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("client/build/static"))))
 
 	// Rest API V1
-	v1.SetupRouters(mux, sources)
+	API.SetupRouters(mux, sources)
 
 	http.ListenAndServe(":8080", mux)
 }
