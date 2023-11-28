@@ -7,3 +7,6 @@ build:
 run: 
 	make build
 	go run main.go
+
+test-go:
+	go test -v ./...
