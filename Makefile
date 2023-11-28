@@ -9,4 +9,4 @@ run:
 	go run main.go
 
 test-go:
-	go test
+	go test -v ./...

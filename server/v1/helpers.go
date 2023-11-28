@@ -1,4 +1,4 @@
-package v2
+package v1
 
 import (
 	"sync"
@@ -6,7 +6,7 @@ import (
 
 // GetStatusFromListSources return a list of StatusResponse struct from a list of souces
 // using the statusClients methods
-func GetStatusFromListSources(listOfSoucers []string, statusClient *StatusClient) []StatusResponse {
+func GetStatusFromListSources(listOfSoucers []string, statusClient StatusIClient) []StatusResponse {
 	statusRespCh := make(chan StatusResponse)
 	clientResponses := make([]StatusResponse, 0, len(listOfSoucers))
 	var wg sync.WaitGroup

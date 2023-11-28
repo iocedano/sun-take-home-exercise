@@ -1,7 +1,7 @@
 package main
 
 import (
-	API "interview/takehomeproject/server/v2"
+	API "interview/takehomeproject/server/v1"
 	"net/http"
 	"path"
 )

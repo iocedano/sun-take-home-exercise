@@ -1,4 +1,4 @@
-package v2
+package v1
 
 import (
 	"log"
@@ -20,7 +20,7 @@ type StatusClient struct {
 
 type StatusIClient interface {
 	Get(request *http.Request) (StatusResponse, error)
-	DoRequest(source string, statusCha chan<- StatusResponse, wg *sync.WaitGroup)
+	DoRequest(source string, statusCha chan StatusResponse, wg *sync.WaitGroup)
 }
 
 func (sc *StatusClient) Get(request *http.Request) (StatusResponse, error) {
@@ -42,8 +42,13 @@ func (sc *StatusClient) Get(request *http.Request) (StatusResponse, error) {
 	}, nil
 }
 
-func (sc *StatusClient) DoRequest(source string, statusCha chan<- StatusResponse, wg *sync.WaitGroup) {
+func (sc *StatusClient) DoRequest(source string, statusCha chan StatusResponse, wg *sync.WaitGroup) {
 	go func(uri string) {
+		if source == "" {
+			statusCha <- StatusResponse{}
+			return
+		}
+		defer wg.Done()
 		request, err := http.NewRequest(http.MethodGet, uri, nil)
 		if err != nil {
 			log.Fatal(err)
@@ -53,6 +58,5 @@ func (sc *StatusClient) DoRequest(source string, statusCha chan<- StatusResponse
 			log.Fatalf("Error happened in Getting the status. Err: %s", err)
 		}
 		statusCha <- status
-		wg.Done()
 	}(source)
 }
